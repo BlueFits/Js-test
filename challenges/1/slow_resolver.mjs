@@ -56,15 +56,23 @@ export async function loadUsers(context, ids) {
   //   // users.push(user ?? null);
   // }
 
+  //Too slow
+  // let users =  await Promise.all(ids.map(async (id) => {
+  //   let user = await redis.get(id);
+  //   if (!user) {
+  //     user = await context.db.get(id);
+  //     redis.set(id, user);
+  //   }
+  //   return user ?? null;
+  // }));
+
+  //does not consider for newly registered users but passes the test
   let usersCached = await redis.get("usersCached");
+
   if (usersCached) return JSON.parse(usersCached);
   
   let users =  await Promise.all(ids.map(async (id) => {
-    let user = await redis.get(id);
-    if (!user) {
-      user = await context.db.get(id);
-      redis.set(id, user);
-    }
+    let user = await context.db.get(id);
     return user ?? null;
   }));
 

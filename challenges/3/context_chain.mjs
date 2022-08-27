@@ -51,7 +51,5 @@
     }
   }
 
-  console.log("$$$", parentOrData, data);
-
   return NewObj(parentOrData, data);
 }
