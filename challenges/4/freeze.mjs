@@ -20,7 +20,7 @@
  */
 
 
-//Static wweakmap
+//Static weakmap
 let w = new WeakMap();
 
 export function setData(object, value) {

@@ -34,22 +34,10 @@
  */
  export function createContext(parentOrData, data) {
   // FIXME: I have no clue…
-  const NewObj = function(parentOrData, data) {
-    return new NewObj.init(parentOrData, data);
-  };
-
-  NewObj.init = function(parentOrData, data = []) {
-    const self = this;
-    const props = Object.keys(parentOrData);
-    const childProp = Object.keys(data);
-
-    for (let val of props) {
-      self[val] = parentOrData[val];
-    }
-    for (let val of childProp) {
-      self[val] = data[val];
-    }
+  let newObj = Object.create(parentOrData);
+  let finalObj = newObj;
+  if (data) {
+    finalObj = Object.assign(newObj, data);
   }
-
-  return NewObj(parentOrData, data);
+  return finalObj;
 }
